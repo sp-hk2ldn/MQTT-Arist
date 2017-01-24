@@ -63,26 +63,6 @@
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFO-5A-W9V">
-                                <rect key="frame" x="38" y="210" width="298" height="247"/>
-                                <color key="backgroundColor" red="0.2408763505" green="0.72403805269999999" blue="0.84170386904761907" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="298" id="bOz-fl-Ob6"/>
-                                    <constraint firstAttribute="height" constant="247" id="goP-aa-UET"/>
-                                </constraints>
-                                <state key="normal" title="TEST TOPIC">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="50"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="testTopicButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4BI-sm-8d9"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -91,11 +71,9 @@
                             <constraint firstAttribute="trailing" secondItem="zrI-rl-y2D" secondAttribute="trailing" id="63h-X0-n9M"/>
                             <constraint firstItem="E7S-lT-5NS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="35" id="8XO-Vc-Hzw"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ydl-fK-XFR" secondAttribute="bottom" id="8w6-MR-haE"/>
-                            <constraint firstItem="fFO-5A-W9V" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BC7-mN-uB4"/>
                             <constraint firstItem="HMQ-Xk-AXv" firstAttribute="centerX" secondItem="E7S-lT-5NS" secondAttribute="centerX" id="F8t-bI-N5K"/>
                             <constraint firstItem="Ydl-fK-XFR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="LBq-dD-mPg"/>
                             <constraint firstAttribute="trailing" secondItem="E7S-lT-5NS" secondAttribute="trailing" constant="35" id="Nvm-2Q-j3c"/>
-                            <constraint firstItem="fFO-5A-W9V" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="T8O-yF-asu"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zrI-rl-y2D" secondAttribute="bottom" id="Vow-Eq-iju"/>
                             <constraint firstItem="zrI-rl-y2D" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dbx-E1-eZh"/>
                             <constraint firstItem="rZw-Eg-lUp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="g7U-9D-t26"/>

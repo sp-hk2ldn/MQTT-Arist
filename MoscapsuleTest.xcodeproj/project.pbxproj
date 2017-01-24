@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4319B08AF175F9487023FBD1 /* Pods_MoscapsuleTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8849CD49260E0ECDC2236493 /* Pods_MoscapsuleTest.framework */; };
+		BD5993AF1E35D1050012FE5C /* AristMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5993AE1E35D1050012FE5C /* AristMachine.swift */; };
+		BD5993B11E35D22F0012FE5C /* MQTTConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5993B01E35D22F0012FE5C /* MQTTConnectable.swift */; };
 		BDC3DA751E31BD83006BBA35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC3DA741E31BD83006BBA35 /* AppDelegate.swift */; };
 		BDC3DA771E31BD83006BBA35 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC3DA761E31BD83006BBA35 /* ViewController.swift */; };
 		BDC3DA7A1E31BD83006BBA35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDC3DA781E31BD83006BBA35 /* Main.storyboard */; };
@@ -17,6 +19,8 @@
 
 /* Begin PBXFileReference section */
 		8849CD49260E0ECDC2236493 /* Pods_MoscapsuleTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoscapsuleTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD5993AE1E35D1050012FE5C /* AristMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AristMachine.swift; sourceTree = SOURCE_ROOT; };
+		BD5993B01E35D22F0012FE5C /* MQTTConnectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MQTTConnectable.swift; sourceTree = "<group>"; };
 		BDC3DA711E31BD83006BBA35 /* MoscapsuleTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoscapsuleTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDC3DA741E31BD83006BBA35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDC3DA761E31BD83006BBA35 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 				BDC3DA7B1E31BD83006BBA35 /* Assets.xcassets */,
 				BDC3DA7D1E31BD83006BBA35 /* LaunchScreen.storyboard */,
 				BDC3DA801E31BD83006BBA35 /* Info.plist */,
+				BD5993AE1E35D1050012FE5C /* AristMachine.swift */,
+				BD5993B01E35D22F0012FE5C /* MQTTConnectable.swift */,
 			);
 			path = MoscapsuleTest;
 			sourceTree = "<group>";
@@ -213,7 +219,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD5993B11E35D22F0012FE5C /* MQTTConnectable.swift in Sources */,
 				BDC3DA771E31BD83006BBA35 /* ViewController.swift in Sources */,
+				BD5993AF1E35D1050012FE5C /* AristMachine.swift in Sources */,
 				BDC3DA751E31BD83006BBA35 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

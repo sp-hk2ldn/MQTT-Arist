@@ -10,18 +10,12 @@ import UIKit
 import Moscapsule
 
 class ViewController: UIViewController, UITextFieldDelegate {
-    
-    @IBAction func testTopicButton(_ sender: UIButton) {
-//        mqttClient?.subscribe("/Sample/Repeating", qos: 2)
-        mqttClient?.publish(string: "asdokasdopksadpoasdk", topic: "/Sample/Request", qos: 2, retain: false)
-    }
-    var mqttConfig: MQTTConfig?
-    var mqttClient: MQTTClient?
-    var connectOrDisconnectClosure: (() -> Void)? = nil
     //** Machine Configuration **//
-    var networkAddress: String = ""
-    var networkPort: Int32 = 1883
-    var keepAliveTime: Int32 = 60
+    var networkAddress: String = "" {
+        didSet {
+            connectionAddressTextField.placeholder = networkAddress
+        }
+    }
     
     //** Machine Response **//
     var machineResponse: String = "" {
@@ -45,7 +39,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    var connectionStatusChangedDelegate: AristConnectionStatusDidChangeDelegate? = nil
 
+    var loadingIndicator: UIActivityIndicatorView?
+    
+    var activeMachine: AristMachine?
+    
     @IBOutlet var connectionButton: UIButton!
     @IBOutlet var connectionAddressTextField: UITextField! {
         didSet {
@@ -55,14 +55,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var machineResponseTextView: UITextView!
     
     @IBAction func connectToArist(_ sender: UIButton) {
-        connectOrDisconnectClosure!()
+        activeMachine?.connect()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if connectOrDisconnectClosure == nil {
-            connectOrDisconnectClosure = initMoscapsule
-        }
+        retrieveActiveNetworkAddress()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -71,42 +69,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    fileprivate func initMoscapsule(){
-        if mqttConfig == nil {
-            mqttConfig = MQTTConfig(clientId: "iPhone Barebones Client v1.0", host: "\(networkAddress)", port: networkPort, keepAlive: keepAliveTime)
-            mqttConfig?.onConnectCallback = {
-                returnCode in
-                self.machineResponse = returnCode.description
-                self.machineResponseCode = returnCode
-                self.connectOrDisconnectClosure = self.disconnectFromMqtt
-                self.setConnectionButtonUI(connected: true)
-            }
-            mqttConfig?.onMessageCallback = { responseMessage in
-                if let responseString = responseMessage.payloadString {
-                    self.machineResponse = responseString
-                }
-            }
-            mqttConfig?.onSubscribeCallback = { responseMessage in
-                print(responseMessage.0)
-                print(responseMessage.1)
-            }
-        }
-        if mqttClient == nil {
-            mqttClient = MQTT.newConnection(mqttConfig!)
-        } else {
-            mqttClient!.reconnect()
-            self.connectionButton.setTitle("Disconnect", for: .normal)
-            self.connectionButton.backgroundColor = UIColor.red
-        }
+    fileprivate func saveActiveNetworkAddress(networkAddress: String){
+        UserDefaults.standard.set(networkAddress, forKey: "activeNetworkAddress")
     }
     
-    fileprivate func disconnectFromMqtt(){
-        if mqttClient != nil {
-            mqttClient?.disconnect()
-            self.connectOrDisconnectClosure = initMoscapsule
-            self.machineResponse = "Disconnected..."
-            self.setConnectionButtonUI(connected: false)
-        }
+    fileprivate func retrieveActiveNetworkAddress(){
+        guard let savedNetworkAddress = UserDefaults.standard.string(forKey: "activeNetworkAddress") else { return }
+        self.networkAddress = savedNetworkAddress
     }
     
     fileprivate func setConnectionButtonUI(connected: Bool){
@@ -121,10 +90,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    
     //MARK:- Delegates
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == connectionAddressTextField {
             networkAddress = textField.text!
+            saveActiveNetworkAddress(networkAddress: textField.text!)
+            activeMachine = AristMachine(ipAddress: textField.text!, machineName: "Arist")
         }
     }
     
