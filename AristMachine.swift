@@ -18,16 +18,18 @@ class AristMachine: MQTTConnectable {
     var ipAddress: String = ""
     var machineName: String = ""
     var hostPort: Int32 = 1883
-    var connectionState: ConnectionState = .disconnected
+    var connectionState: ConnectionState = .disconnected {
+        didSet {
+            connectionStateDelegate?.connectionStateDidChange(connectionState: connectionState)
+        }
+    }
+    var connectionStateDelegate: AristConnectionStatusDelegate?
 
-    init(ipAddress: String, machineName: String){
+    init(ipAddress: String, machineName: String, currentViewController: AristCommunicationViewController){
+        self.connectionStateDelegate = currentViewController.self
         self.ipAddress = ipAddress
         self.machineName = machineName
         self.mqTTConfig = MQTTConfig(clientId: "AristApp", host: "\(self.ipAddress)", port: self.hostPort, keepAlive: 60)
         self.mqTTClient = MQTT.newConnection(self.mqTTConfig, connectImmediately: false)
     }
-}
-
-protocol AristConnectionStatusDidChangeDelegate {
-    func connectionStatusDidChange()
 }

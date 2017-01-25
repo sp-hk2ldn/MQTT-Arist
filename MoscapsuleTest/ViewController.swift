@@ -9,7 +9,7 @@
 import UIKit
 import Moscapsule
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: AristCommunicationViewController, UITextFieldDelegate {
     //** Machine Configuration **//
     var networkAddress: String = "" {
         didSet {
@@ -29,19 +29,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    var machineResponseCode: Moscapsule.ReturnCode = .unknown {
-        didSet {
-            switch machineResponseCode {
-            case .success:
-                break
-            default:
-                break
-            }
-        }
-    }
     
-    var connectionStatusChangedDelegate: AristConnectionStatusDidChangeDelegate? = nil
-
     var loadingIndicator: UIActivityIndicatorView?
     
     var activeMachine: AristMachine?
@@ -96,7 +84,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if textField == connectionAddressTextField {
             networkAddress = textField.text!
             saveActiveNetworkAddress(networkAddress: textField.text!)
-            activeMachine = AristMachine(ipAddress: textField.text!, machineName: "Arist")
+            activeMachine = AristMachine(ipAddress: textField.text!, machineName: "Arist", currentViewController: self)
         }
     }
     
