@@ -94,9 +94,6 @@ class ViewController: AristCommunicationViewController, UITextFieldDelegate {
         }
         return true
     }
-    
-    
-
 
 }
 
