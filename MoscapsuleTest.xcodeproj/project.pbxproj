@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		4319B08AF175F9487023FBD1 /* Pods_MoscapsuleTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8849CD49260E0ECDC2236493 /* Pods_MoscapsuleTest.framework */; };
+		BD1A07D91E3854CC00990113 /* AristCommunicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1A07D81E3854CC00990113 /* AristCommunicationViewController.swift */; };
+		BD1A07DC1E3899DD00990113 /* AristMachineCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1A07DB1E3899DD00990113 /* AristMachineCommunicator.swift */; };
+		BD1A07DE1E389ACE00990113 /* JSONMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1A07DD1E389ACE00990113 /* JSONMappable.swift */; };
+		BD1A07E41E389D1100990113 /* AristMachineStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1A07E31E389D1100990113 /* AristMachineStatus.swift */; };
+		BD1A07E61E39B79700990113 /* Cert.strings in Resources */ = {isa = PBXBuildFile; fileRef = BD1A07E51E39B79700990113 /* Cert.strings */; };
 		BD5993AF1E35D1050012FE5C /* AristMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5993AE1E35D1050012FE5C /* AristMachine.swift */; };
 		BD5993B11E35D22F0012FE5C /* MQTTConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5993B01E35D22F0012FE5C /* MQTTConnectable.swift */; };
 		BDC3DA751E31BD83006BBA35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC3DA741E31BD83006BBA35 /* AppDelegate.swift */; };
@@ -19,6 +24,11 @@
 
 /* Begin PBXFileReference section */
 		8849CD49260E0ECDC2236493 /* Pods_MoscapsuleTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoscapsuleTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD1A07D81E3854CC00990113 /* AristCommunicationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AristCommunicationViewController.swift; sourceTree = "<group>"; };
+		BD1A07DB1E3899DD00990113 /* AristMachineCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AristMachineCommunicator.swift; sourceTree = "<group>"; };
+		BD1A07DD1E389ACE00990113 /* JSONMappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONMappable.swift; sourceTree = "<group>"; };
+		BD1A07E31E389D1100990113 /* AristMachineStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AristMachineStatus.swift; sourceTree = "<group>"; };
+		BD1A07E51E39B79700990113 /* Cert.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Cert.strings; sourceTree = "<group>"; };
 		BD5993AE1E35D1050012FE5C /* AristMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AristMachine.swift; sourceTree = SOURCE_ROOT; };
 		BD5993B01E35D22F0012FE5C /* MQTTConnectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MQTTConnectable.swift; sourceTree = "<group>"; };
 		BDC3DA711E31BD83006BBA35 /* MoscapsuleTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoscapsuleTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +71,50 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BD1A07DA1E38999A00990113 /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				BD1A07E21E389D0300990113 /* Superclasses */,
+				BD5993AE1E35D1050012FE5C /* AristMachine.swift */,
+				BD1A07E31E389D1100990113 /* AristMachineStatus.swift */,
+			);
+			name = DataModels;
+			sourceTree = "<group>";
+		};
+		BD1A07DF1E389AE400990113 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				BD1A07DD1E389ACE00990113 /* JSONMappable.swift */,
+				BD5993B01E35D22F0012FE5C /* MQTTConnectable.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		BD1A07E01E389AF500990113 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BDC3DA761E31BD83006BBA35 /* ViewController.swift */,
+				BD1A07E11E389B0900990113 /* Superclasses */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		BD1A07E11E389B0900990113 /* Superclasses */ = {
+			isa = PBXGroup;
+			children = (
+				BD1A07D81E3854CC00990113 /* AristCommunicationViewController.swift */,
+			);
+			name = Superclasses;
+			sourceTree = "<group>";
+		};
+		BD1A07E21E389D0300990113 /* Superclasses */ = {
+			isa = PBXGroup;
+			children = (
+				BD1A07DB1E3899DD00990113 /* AristMachineCommunicator.swift */,
+			);
+			name = Superclasses;
+			sourceTree = "<group>";
+		};
 		BDC3DA681E31BD82006BBA35 = {
 			isa = PBXGroup;
 			children = (
@@ -82,14 +136,15 @@
 		BDC3DA731E31BD83006BBA35 /* MoscapsuleTest */ = {
 			isa = PBXGroup;
 			children = (
+				BD1A07E01E389AF500990113 /* ViewControllers */,
+				BD1A07DF1E389AE400990113 /* Protocols */,
+				BD1A07DA1E38999A00990113 /* DataModels */,
 				BDC3DA741E31BD83006BBA35 /* AppDelegate.swift */,
-				BDC3DA761E31BD83006BBA35 /* ViewController.swift */,
 				BDC3DA781E31BD83006BBA35 /* Main.storyboard */,
 				BDC3DA7B1E31BD83006BBA35 /* Assets.xcassets */,
 				BDC3DA7D1E31BD83006BBA35 /* LaunchScreen.storyboard */,
 				BDC3DA801E31BD83006BBA35 /* Info.plist */,
-				BD5993AE1E35D1050012FE5C /* AristMachine.swift */,
-				BD5993B01E35D22F0012FE5C /* MQTTConnectable.swift */,
+				BD1A07E51E39B79700990113 /* Cert.strings */,
 			);
 			path = MoscapsuleTest;
 			sourceTree = "<group>";
@@ -160,6 +215,7 @@
 			files = (
 				BDC3DA7F1E31BD83006BBA35 /* LaunchScreen.storyboard in Resources */,
 				BDC3DA7C1E31BD83006BBA35 /* Assets.xcassets in Resources */,
+				BD1A07E61E39B79700990113 /* Cert.strings in Resources */,
 				BDC3DA7A1E31BD83006BBA35 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,8 +275,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD1A07D91E3854CC00990113 /* AristCommunicationViewController.swift in Sources */,
+				BD1A07DE1E389ACE00990113 /* JSONMappable.swift in Sources */,
 				BD5993B11E35D22F0012FE5C /* MQTTConnectable.swift in Sources */,
 				BDC3DA771E31BD83006BBA35 /* ViewController.swift in Sources */,
+				BD1A07DC1E3899DD00990113 /* AristMachineCommunicator.swift in Sources */,
+				BD1A07E41E389D1100990113 /* AristMachineStatus.swift in Sources */,
 				BD5993AF1E35D1050012FE5C /* AristMachine.swift in Sources */,
 				BDC3DA751E31BD83006BBA35 /* AppDelegate.swift in Sources */,
 			);
