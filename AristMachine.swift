@@ -18,6 +18,7 @@ class AristMachine: MQTTConnectable {
     var ipAddress: String = ""
     var machineName: String = ""
     var hostPort: Int32 = 1883
+    var encryption: String = "ssl://"
     
     //MARK:- Variables: Machine Status Information
     var connectionState: ConnectionState = .disconnected {
@@ -25,7 +26,7 @@ class AristMachine: MQTTConnectable {
             connectionStateDelegate?.connectionStateDidChange(connectionState: connectionState)
         }
     }
-    var latestMachineStatus: [MachineStatus]
+    var latestMachineStatus: [AristMachineStatus] = []
     
     //MARK:- Variables: Delegates
     var connectionStateDelegate: AristConnectionStatusDelegate?
@@ -35,7 +36,22 @@ class AristMachine: MQTTConnectable {
         self.connectionStateDelegate = currentViewController.self
         self.ipAddress = ipAddress
         self.machineName = machineName
-        self.mqTTConfig = MQTTConfig(clientId: "AristApp", host: "\(self.ipAddress)", port: self.hostPort, keepAlive: 60)
+        self.mqTTConfig = MQTTConfig(clientId: "AristApp", host: "\(encryption)\(self.ipAddress)", port: self.hostPort, keepAlive: 60)
         self.mqTTClient = MQTT.newConnection(self.mqTTConfig, connectImmediately: false)
+        let mQTTServerCert = MQTTServerCert(cafile: generateCertfile()!, capath: nil)
+        
+        self.mqTTConfig.mqttServerCert = MQTTServerCert(cafile: generateCertfile()!, capath: nil)
+        
     }
+}
+
+func generateCertfile() -> String? {
+    if let filepath = Bundle.main.path(forResource: "Cert", ofType: "strings") {
+        do {
+            print(filepath)
+            return filepath
+        }
+    }
+    
+    return nil
 }

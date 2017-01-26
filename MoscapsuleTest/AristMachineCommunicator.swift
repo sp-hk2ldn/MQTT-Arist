@@ -1,5 +1,5 @@
 //
-//  JSONMappable.swift
+//  AristMachineStatus.swift
 //  MoscapsuleTest
 //
 //  Created by Stephen Parker on 25/01/2017.
@@ -9,6 +9,9 @@
 import Foundation
 import SwiftyJSON
 
-protocol JSONMappable {
-    init(jsonObject: JSON)
+class AristMachineCommunicator: JSONMappable {
+    required init(jsonObject: JSON) {
+        //
+    }
+
 }
