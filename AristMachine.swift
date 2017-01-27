@@ -38,9 +38,10 @@ class AristMachine: MQTTConnectable {
         self.machineName = machineName
         self.mqTTConfig = MQTTConfig(clientId: "AristApp", host: "\(encryption)\(self.ipAddress)", port: self.hostPort, keepAlive: 60)
         self.mqTTClient = MQTT.newConnection(self.mqTTConfig, connectImmediately: false)
-        let mQTTServerCert = MQTTServerCert(cafile: generateCertfile()!, capath: nil)
-        
         self.mqTTConfig.mqttServerCert = MQTTServerCert(cafile: generateCertfile()!, capath: nil)
+        let certReqs = CertReqs(rawValue: <#T##Int32#>)
+        let tlsVersion
+        let TLSOpts = MQTTTlsOpts(tls_insecure: false, cert_reqs: <#T##CertReqs#>, tls_version: <#T##String?#>, ciphers: <#T##String?#>)
         
     }
 }
