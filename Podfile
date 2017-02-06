@@ -7,7 +7,8 @@ target 'MoscapsuleTest' do
   pod 'OpenSSL-Universal', '~> 1.0.1.18'
   pod 'Moscapsule', :git => 'https://github.com/flightonary/Moscapsule.git', :branch => 'swift3'
   pod 'SwiftyJSON'
-
+  
+  pod 'MQTTClient'
   # Pods for MoscapsuleTest
 
 end

@@ -15,9 +15,9 @@ class AristMachine: MQTTConnectable {
     internal var mqTTClient: MQTTClient
 
     //MARK:- Variables: Information Gleaned from Network Discovery
-    var ipAddress: String = ""
+    var ipAddress: String = "192.168.1.132"
     var machineName: String = ""
-    var hostPort: Int32 = 1883
+    var hostPort: Int32 = 8443
     var encryption: String = "ssl://"
     
     //MARK:- Variables: Machine Status Information
@@ -38,15 +38,15 @@ class AristMachine: MQTTConnectable {
         self.machineName = machineName
         self.mqTTConfig = MQTTConfig(clientId: "AristApp", host: "\(encryption)\(self.ipAddress)", port: self.hostPort, keepAlive: 60)
         self.mqTTClient = MQTT.newConnection(self.mqTTConfig, connectImmediately: false)
-        let mQTTServerCert = MQTTServerCert(cafile: generateCertfile()!, capath: nil)
-        
+//        let mQTTServerCert = MQTTServerCert(cafile: generateCertfile()!, capath: nil)
+        self.mqTTConfig.mqttTlsOpts = MQTTTlsOpts(tls_insecure: true, cert_reqs: .ssl_verify_none, tls_version: "tlsv1.2", ciphers: nil)
         self.mqTTConfig.mqttServerCert = MQTTServerCert(cafile: generateCertfile()!, capath: nil)
         
     }
 }
 
 func generateCertfile() -> String? {
-    if let filepath = Bundle.main.path(forResource: "Cert", ofType: "strings") {
+    if let filepath = Bundle.main.path(forResource: "cert", ofType: "string") {
         do {
             print(filepath)
             return filepath

@@ -20,6 +20,7 @@
 		BDC3DA7A1E31BD83006BBA35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDC3DA781E31BD83006BBA35 /* Main.storyboard */; };
 		BDC3DA7C1E31BD83006BBA35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDC3DA7B1E31BD83006BBA35 /* Assets.xcassets */; };
 		BDC3DA7F1E31BD83006BBA35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDC3DA7D1E31BD83006BBA35 /* LaunchScreen.storyboard */; };
+		E1A654321E3B19A200C60878 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A654311E3B19A200C60878 /* Package.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		BDC3DA7B1E31BD83006BBA35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDC3DA7E1E31BD83006BBA35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BDC3DA801E31BD83006BBA35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1A654311E3B19A200C60878 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		E44578FFF41183F1C500BEFD /* Pods-MoscapsuleTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoscapsuleTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoscapsuleTest/Pods-MoscapsuleTest.debug.xcconfig"; sourceTree = "<group>"; };
 		EA4F062618DB277730E6D28D /* Pods-MoscapsuleTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoscapsuleTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoscapsuleTest/Pods-MoscapsuleTest.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,6 +120,7 @@
 		BDC3DA681E31BD82006BBA35 = {
 			isa = PBXGroup;
 			children = (
+				E1A654311E3B19A200C60878 /* Package.swift */,
 				BDC3DA731E31BD83006BBA35 /* MoscapsuleTest */,
 				BDC3DA721E31BD83006BBA35 /* Products */,
 				25CDFC6095F24104CD3F7A51 /* Pods */,
@@ -265,7 +268,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -278,6 +281,7 @@
 				BD1A07D91E3854CC00990113 /* AristCommunicationViewController.swift in Sources */,
 				BD1A07DE1E389ACE00990113 /* JSONMappable.swift in Sources */,
 				BD5993B11E35D22F0012FE5C /* MQTTConnectable.swift in Sources */,
+				E1A654321E3B19A200C60878 /* Package.swift in Sources */,
 				BDC3DA771E31BD83006BBA35 /* ViewController.swift in Sources */,
 				BD1A07DC1E3899DD00990113 /* AristMachineCommunicator.swift in Sources */,
 				BD1A07E41E389D1100990113 /* AristMachineStatus.swift in Sources */,
