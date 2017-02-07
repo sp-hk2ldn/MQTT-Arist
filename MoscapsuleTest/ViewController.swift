@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Moscapsule
 //import SwiftMQTT
 import MQTTClient
 
@@ -55,6 +54,9 @@ class ViewController: AristCommunicationViewController, UITextFieldDelegate, MQT
         activeMachine?.connect()
     }
     
+    @IBAction func disconnectFromArist(_ sender: UIButton) {
+        activeMachine?.disconnect()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         retrieveActiveNetworkAddress()
@@ -90,15 +92,15 @@ class ViewController: AristCommunicationViewController, UITextFieldDelegate, MQT
     
     //MARK:- Delegates
     func textFieldDidEndEditing(_ textField: UITextField) {
-//        if textField == connectionAddressTextField {
-//            networkAddress = textField.text!
-//            saveActiveNetworkAddress(networkAddress: textField.text!)
-//            activeMachine = AristMachine(ipAddress: textField.text!, machineName: "Arist", currentViewController: self)
-//        
-//        }
-        testSwiftSubscribe()
+        if textField == connectionAddressTextField {
+            networkAddress = textField.text!
+            saveActiveNetworkAddress(networkAddress: textField.text!)
+            activeMachine = AristMachine(ipAddress: textField.text!, machineName: "arist", hostPort: 8443)
         
-        print("mqttSession Start")
+        }
+//        testSwiftSubscribe()
+        
+//        print("mqttSession Start")
     }
     
     func mqttSession(session: MQTTSession, received message: Data, in topic: String) {

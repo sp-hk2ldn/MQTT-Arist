@@ -7,51 +7,79 @@
 //
 
 import Foundation
-import Moscapsule
+import MQTTClient
 
-class AristMachine: MQTTConnectable {
-    //MARK:- MQTT
-    internal var mqTTConfig: MQTTConfig
-    internal var mqTTClient: MQTTClient
+class AristMachine: NSObject, MQTTSessionDelegate {
 
     //MARK:- Variables: Information Gleaned from Network Discovery
-    var ipAddress: String = "192.168.1.132"
+    var ipAddress: String = ""
     var machineName: String = ""
-    var hostPort: Int32 = 8443
+    var hostPort: UInt32 = 8443
     var encryption: String = "ssl://"
-    
-    //MARK:- Variables: Machine Status Information
-    var connectionState: ConnectionState = .disconnected {
+    var connectionStatus: ConnectionState = .disconnected {
         didSet {
-            connectionStateDelegate?.connectionStateDidChange(connectionState: connectionState)
+            connectionStatusLog.append([Date(): connectionStatus])
         }
     }
+    
+    var connectionStatusLog: [[Date:ConnectionState]] = []
     var latestMachineStatus: [AristMachineStatus] = []
     
     //MARK:- Variables: Delegates
-    var connectionStateDelegate: AristConnectionStatusDelegate?
     
-    //MARK:- Initialiser
-    init(ipAddress: String, machineName: String, currentViewController: AristCommunicationViewController){
-        self.connectionStateDelegate = currentViewController.self
-        self.ipAddress = ipAddress
-        self.machineName = machineName
-        self.mqTTConfig = MQTTConfig(clientId: "AristApp", host: "\(encryption)\(self.ipAddress)", port: self.hostPort, keepAlive: 60)
-        self.mqTTClient = MQTT.newConnection(self.mqTTConfig, connectImmediately: false)
-//        let mQTTServerCert = MQTTServerCert(cafile: generateCertfile()!, capath: nil)
-        self.mqTTConfig.mqttTlsOpts = MQTTTlsOpts(tls_insecure: true, cert_reqs: .ssl_verify_none, tls_version: "tlsv1.2", ciphers: nil)
-        self.mqTTConfig.mqttServerCert = MQTTServerCert(cafile: generateCertfile()!, capath: nil)
-        
-    }
-}
+    var session: MQTTSession!
 
-func generateCertfile() -> String? {
-    if let filepath = Bundle.main.path(forResource: "cert", ofType: "string") {
-        do {
-            print(filepath)
-            return filepath
+    //MARK:- Initialiser
+    init(ipAddress: String, machineName: String, hostPort: UInt32){
+        super.init()
+        self.ipAddress = ipAddress
+        self.hostPort = hostPort
+        self.machineName = machineName
+        guard let newSession = MQTTSession() else {
+            fatalError("Could not create MQTTSession")
+        }
+        newSession.delegate = self
+        newSession.securityPolicy = MQTTSSLSecurityPolicy(pinningMode: .none)
+        newSession.securityPolicy.validatesCertificateChain = false
+        newSession.securityPolicy.allowInvalidCertificates = true
+        session = newSession
+//
+//        newSession.subscribe(toTopic: "/Sample/Repeating", at: .atMostOnce)
+//        newSession.publishData("sent from Xcode using Swift".data(using: String.Encoding.utf8, allowLossyConversion: false),
+//                               onTopic: "/Sample/Request",
+//                               retain: false,
+//                               qos: .atMostOnce)
+    }
+    
+    public func connect(){
+//        session?.connect(toHost: self.ipAddress, port: self.hostPort, usingSSL: true)
+        session?.connect(toHost: self.ipAddress, port: self.hostPort, usingSSL: true)
+    }
+    
+    public func getConnectionStatus() -> [Date: ConnectionState]? {
+        return connectionStatusLog.last
+    }
+    
+    internal func connected(_ session: MQTTSession!) {
+        if session.status == .connected {
+            connectionStatus = .connected
         }
     }
     
-    return nil
+    func disconnect(){
+        session?.disconnect()
+    }
+    
+    internal func connectionClosed(_ session: MQTTSession!) {
+        if session.status == .closed {
+            connectionStatus = .disconnected
+        }
+    }
+    
+    
+    
+    
+    
+    
 }
+

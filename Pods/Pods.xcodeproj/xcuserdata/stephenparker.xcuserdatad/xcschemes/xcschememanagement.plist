@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>MQTTClient.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Moscapsule.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>5884CE7BA252CBA1861A903876849FE4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5AB3B96CB2752F04ADF314E15D195182</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9AFE8A4295D353833EB0E90420B908D5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ADB6C2612E40FDADD34348E81D161213</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E6C1391259567831B77F85A920780C8D</key>
+		<key>D1B495DA5558BCC077E21573A719B685</key>
 		<dict>
 			<key>primary</key>
 			<true/>

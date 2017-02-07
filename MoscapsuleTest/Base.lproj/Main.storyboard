@@ -63,19 +63,34 @@
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0J-Yf-Uvm">
+                                <rect key="frame" x="35" y="194" width="305" height="32"/>
+                                <color key="backgroundColor" red="1" green="0.39604279214625854" blue="0.47630520955442179" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Disconnect">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="disconnectFromArist:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Zi-No-1XW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="rZw-Eg-lUp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4HP-SD-Cen"/>
                             <constraint firstAttribute="trailing" secondItem="Ydl-fK-XFR" secondAttribute="trailing" constant="10" id="4ke-7i-iJs"/>
                             <constraint firstAttribute="trailing" secondItem="zrI-rl-y2D" secondAttribute="trailing" id="63h-X0-n9M"/>
+                            <constraint firstItem="q0J-Yf-Uvm" firstAttribute="height" secondItem="HMQ-Xk-AXv" secondAttribute="height" id="6RL-3B-O7J"/>
                             <constraint firstItem="E7S-lT-5NS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="35" id="8XO-Vc-Hzw"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ydl-fK-XFR" secondAttribute="bottom" id="8w6-MR-haE"/>
                             <constraint firstItem="HMQ-Xk-AXv" firstAttribute="centerX" secondItem="E7S-lT-5NS" secondAttribute="centerX" id="F8t-bI-N5K"/>
+                            <constraint firstItem="q0J-Yf-Uvm" firstAttribute="width" secondItem="HMQ-Xk-AXv" secondAttribute="width" id="Gca-Xi-8Qh"/>
+                            <constraint firstItem="q0J-Yf-Uvm" firstAttribute="trailing" secondItem="HMQ-Xk-AXv" secondAttribute="trailing" id="JHc-bW-LPW"/>
                             <constraint firstItem="Ydl-fK-XFR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="LBq-dD-mPg"/>
                             <constraint firstAttribute="trailing" secondItem="E7S-lT-5NS" secondAttribute="trailing" constant="35" id="Nvm-2Q-j3c"/>
+                            <constraint firstItem="q0J-Yf-Uvm" firstAttribute="top" secondItem="HMQ-Xk-AXv" secondAttribute="bottom" constant="8" id="StE-08-RSk"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zrI-rl-y2D" secondAttribute="bottom" id="Vow-Eq-iju"/>
                             <constraint firstItem="zrI-rl-y2D" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dbx-E1-eZh"/>
+                            <constraint firstItem="q0J-Yf-Uvm" firstAttribute="leading" secondItem="HMQ-Xk-AXv" secondAttribute="leading" id="eUP-as-kpF"/>
                             <constraint firstItem="rZw-Eg-lUp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="g7U-9D-t26"/>
                             <constraint firstItem="HMQ-Xk-AXv" firstAttribute="top" secondItem="E7S-lT-5NS" secondAttribute="bottom" constant="8" id="hxd-0g-Cyb"/>
                             <constraint firstItem="HMQ-Xk-AXv" firstAttribute="width" secondItem="E7S-lT-5NS" secondAttribute="width" id="psy-1G-6K7"/>

@@ -7,32 +7,34 @@
 //
 
 import Foundation
-import Moscapsule
+import MQTTClient
 
 enum ConnectionState: Int {
     case disconnected = 0, connected
 }
 
-protocol MQTTConnectable {
-    var mqTTConfig: MQTTConfig { get set }
-    var mqTTClient: MQTTClient { get set }
+protocol MQTTConnectable: MQTTSessionDelegate {
+    var session: MQTTSession { get set }
     func connect()
-    func disconnect()
+    func connected(_ session: MQTTSession!)
 }
 
 extension MQTTConnectable where Self:AristMachine {
-    func connect() {
-        self.mqTTClient.connectTo(mqTTConfig.host, port: mqTTConfig.port, keepAlive: 60) { (result) in
-            print(result)
-            if result == .mosq_success {
-                self.connectionState = .connected
-            }
+    
+    
+    func connect(){
+        guard let newSession = MQTTSession() else {
+            fatalError("Could not create MQTTSession")
         }
+        newSession.delegate = self
+        newSession.securityPolicy = MQTTSSLSecurityPolicy(pinningMode: .none)
+        newSession.securityPolicy.validatesCertificateChain = false
+        newSession.securityPolicy.allowInvalidCertificates = true
+        
+        self.session = newSession
     }
-    func disconnect(){
-        self.mqTTClient.disconnect({ result in
-            print(result)
-            self.connectionState = .disconnected
-        })
+    
+    func connected(_ session: MQTTSession!) {
+        
     }
 }
