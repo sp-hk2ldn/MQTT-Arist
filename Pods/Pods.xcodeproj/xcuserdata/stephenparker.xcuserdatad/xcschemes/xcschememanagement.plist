@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Bond.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Diff.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MQTTClient.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -19,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ReactiveKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,12 +42,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5884CE7BA252CBA1861A903876849FE4</key>
+		<key>270D7A164E320C3E0704F8E6238BFBA2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5AB3B96CB2752F04ADF314E15D195182</key>
+		<key>48328EBCD6DC676A9804A01B870AE80E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -43,6 +58,21 @@
 			<true/>
 		</dict>
 		<key>D1B495DA5558BCC077E21573A719B685</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E22A91517B70A6FA4B79CC2EEA8A70FF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E729C52CBE7ADC6D7B6BF3F4FEF33548</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F8089F85394078B9843848DC4826E765</key>
 		<dict>
 			<key>primary</key>
 			<true/>

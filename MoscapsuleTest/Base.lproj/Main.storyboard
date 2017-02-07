@@ -73,6 +73,12 @@
                                     <action selector="disconnectFromArist:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Zi-No-1XW"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="reactivetestlabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEh-gc-bM3">
+                                <rect key="frame" x="125" y="323" width="126.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -84,6 +90,7 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ydl-fK-XFR" secondAttribute="bottom" id="8w6-MR-haE"/>
                             <constraint firstItem="HMQ-Xk-AXv" firstAttribute="centerX" secondItem="E7S-lT-5NS" secondAttribute="centerX" id="F8t-bI-N5K"/>
                             <constraint firstItem="q0J-Yf-Uvm" firstAttribute="width" secondItem="HMQ-Xk-AXv" secondAttribute="width" id="Gca-Xi-8Qh"/>
+                            <constraint firstItem="uEh-gc-bM3" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="I8A-vl-Tdo"/>
                             <constraint firstItem="q0J-Yf-Uvm" firstAttribute="trailing" secondItem="HMQ-Xk-AXv" secondAttribute="trailing" id="JHc-bW-LPW"/>
                             <constraint firstItem="Ydl-fK-XFR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="LBq-dD-mPg"/>
                             <constraint firstAttribute="trailing" secondItem="E7S-lT-5NS" secondAttribute="trailing" constant="35" id="Nvm-2Q-j3c"/>
@@ -96,12 +103,14 @@
                             <constraint firstItem="HMQ-Xk-AXv" firstAttribute="width" secondItem="E7S-lT-5NS" secondAttribute="width" id="psy-1G-6K7"/>
                             <constraint firstItem="E7S-lT-5NS" firstAttribute="top" secondItem="rZw-Eg-lUp" secondAttribute="bottom" constant="68" id="r85-ce-MRn"/>
                             <constraint firstItem="E7S-lT-5NS" firstAttribute="centerX" secondItem="rZw-Eg-lUp" secondAttribute="centerX" id="xOX-zR-R31"/>
+                            <constraint firstItem="uEh-gc-bM3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ysf-FU-7bj"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="connectionAddressTextField" destination="E7S-lT-5NS" id="KrI-Qq-sL6"/>
                         <outlet property="connectionButton" destination="HMQ-Xk-AXv" id="jZZ-6q-M83"/>
                         <outlet property="machineResponseTextView" destination="Ydl-fK-XFR" id="HD8-Gc-ivy"/>
+                        <outlet property="reactivetestlabel" destination="uEh-gc-bM3" id="buC-xS-sin"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -9,8 +9,8 @@
 import Foundation
 import MQTTClient
 
-enum ConnectionState: Int {
-    case disconnected = 0, connected
+enum ConnectionState: String {
+    case disconnected = "disconnected", connected = "connected"
 }
 
 protocol MQTTConnectable: MQTTSessionDelegate {

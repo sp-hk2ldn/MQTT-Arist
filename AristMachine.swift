@@ -8,27 +8,31 @@
 
 import Foundation
 import MQTTClient
+import Bond
 
 class AristMachine: NSObject, MQTTSessionDelegate {
 
     //MARK:- Variables: Information Gleaned from Network Discovery
+    var session: MQTTSession!
     var ipAddress: String = ""
     var machineName: String = ""
     var hostPort: UInt32 = 8443
+    
     var encryption: String = "ssl://"
+    
+    
+    //MARK:- Status
     var connectionStatus: ConnectionState = .disconnected {
         didSet {
+            connectionStatusString.value = connectionStatus.rawValue
             connectionStatusLog.append([Date(): connectionStatus])
         }
     }
-    
+    var connectionStatusString = Observable<String>("")
     var connectionStatusLog: [[Date:ConnectionState]] = []
-    var latestMachineStatus: [AristMachineStatus] = []
+    var latestMachineStatus = Observable<[AristMachineStatus]>([])
     
-    //MARK:- Variables: Delegates
     
-    var session: MQTTSession!
-
     //MARK:- Initialiser
     init(ipAddress: String, machineName: String, hostPort: UInt32){
         super.init()
@@ -43,16 +47,9 @@ class AristMachine: NSObject, MQTTSessionDelegate {
         newSession.securityPolicy.validatesCertificateChain = false
         newSession.securityPolicy.allowInvalidCertificates = true
         session = newSession
-//
-//        newSession.subscribe(toTopic: "/Sample/Repeating", at: .atMostOnce)
-//        newSession.publishData("sent from Xcode using Swift".data(using: String.Encoding.utf8, allowLossyConversion: false),
-//                               onTopic: "/Sample/Request",
-//                               retain: false,
-//                               qos: .atMostOnce)
     }
     
     public func connect(){
-//        session?.connect(toHost: self.ipAddress, port: self.hostPort, usingSSL: true)
         session?.connect(toHost: self.ipAddress, port: self.hostPort, usingSSL: true)
     }
     
@@ -75,11 +72,6 @@ class AristMachine: NSObject, MQTTSessionDelegate {
             connectionStatus = .disconnected
         }
     }
-    
-    
-    
-    
-    
     
 }
 

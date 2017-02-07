@@ -42,6 +42,7 @@ class ViewController: AristCommunicationViewController, UITextFieldDelegate, MQT
     
     var activeMachine: AristMachine?
     
+    @IBOutlet var reactivetestlabel: UILabel!
     @IBOutlet var connectionButton: UIButton!
     @IBOutlet var connectionAddressTextField: UITextField! {
         didSet {
@@ -51,6 +52,7 @@ class ViewController: AristCommunicationViewController, UITextFieldDelegate, MQT
     @IBOutlet var machineResponseTextView: UITextView!
     
     @IBAction func connectToArist(_ sender: UIButton) {
+        bindTextViewToStatus()
         activeMachine?.connect()
     }
     
@@ -60,6 +62,7 @@ class ViewController: AristCommunicationViewController, UITextFieldDelegate, MQT
     override func viewDidLoad() {
         super.viewDidLoad()
         retrieveActiveNetworkAddress()
+
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -89,6 +92,13 @@ class ViewController: AristCommunicationViewController, UITextFieldDelegate, MQT
         }
     }
     
+    fileprivate func bindTextViewToStatus(){
+        activeMachine?.connectionStatusString
+            .bind(to: machineResponseTextView.bnd_text)
+        activeMachine?.connectionStatusString
+            .bind(to: reactivetestlabel.bnd_text)
+    }
+    
     
     //MARK:- Delegates
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -98,22 +108,6 @@ class ViewController: AristCommunicationViewController, UITextFieldDelegate, MQT
             activeMachine = AristMachine(ipAddress: textField.text!, machineName: "arist", hostPort: 8443)
         
         }
-//        testSwiftSubscribe()
-        
-//        print("mqttSession Start")
-    }
-    
-    func mqttSession(session: MQTTSession, received message: Data, in topic: String) {
-        let string = String(data: message, encoding: .utf8)!
-        print("data received on topic \(topic) message \(string)")
-    }
-    
-    func mqttSocketErrorOccurred(session: MQTTSession) {
-        print("Socket Error")
-    }
-    
-    func mqttDidDisconnect(session: MQTTSession) {
-        print("Session Disconnected.")
     }
     
     func handleEvent(_ session: MQTTSession!, event eventCode: MQTTSessionEvent, error: Error!) {
@@ -147,44 +141,44 @@ class ViewController: AristCommunicationViewController, UITextFieldDelegate, MQT
         return true
     }
     
-    func testSwiftSubscribe() {
-        
-        
-        guard let newSession = MQTTSession() else {
-            fatalError("Could not create MQTTSession")
-        }
-        session = newSession
-        
-    
-    
-        newSession.delegate = self
-
-        newSession.securityPolicy = MQTTSSLSecurityPolicy(pinningMode: .none)
-        newSession.securityPolicy.validatesCertificateChain = false
-        newSession.securityPolicy.allowInvalidCertificates = true
-        
-        newSession.connect(toHost: "192.168.1.132", port: 8443, usingSSL: true)
-        
-        while !sessionConnected && !sessionError {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
-        }
-        
-        newSession.subscribe(toTopic: "/Sample/Repeating", at: .atMostOnce)
-        
-        while sessionConnected && !sessionError && !sessionSubAcked {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
-        }
-        
-        newSession.publishData("sent from Xcode using Swift".data(using: String.Encoding.utf8, allowLossyConversion: false),
-                               onTopic: "/Sample/Request",
-                               retain: false,
-                               qos: .atMostOnce)
-        
-        while sessionConnected && !sessionError && !sessionReceived {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
-        }
-        
-    }
+//    func testSwiftSubscribe() {
+//        
+//        
+//        guard let newSession = MQTTSession() else {
+//            fatalError("Could not create MQTTSession")
+//        }
+//        session = newSession
+//        
+//    
+//    
+//        newSession.delegate = self
+//
+//        newSession.securityPolicy = MQTTSSLSecurityPolicy(pinningMode: .none)
+//        newSession.securityPolicy.validatesCertificateChain = false
+//        newSession.securityPolicy.allowInvalidCertificates = true
+//        
+//        newSession.connect(toHost: "192.168.1.132", port: 8443, usingSSL: true)
+//        
+//        while !sessionConnected && !sessionError {
+//            RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
+//        }
+//        
+//        newSession.subscribe(toTopic: "/Sample/Repeating", at: .atMostOnce)
+//        
+//        while sessionConnected && !sessionError && !sessionSubAcked {
+//            RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
+//        }
+//        
+//        newSession.publishData("sent from Xcode using Swift".data(using: String.Encoding.utf8, allowLossyConversion: false),
+//                               onTopic: "/Sample/Request",
+//                               retain: false,
+//                               qos: .atMostOnce)
+//        
+//        while sessionConnected && !sessionError && !sessionReceived {
+//            RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
+//        }
+//        
+//    }
     
 
 }
