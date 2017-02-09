@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'E729C52CBE7ADC6D7B6BF3F4FEF33548'
+               BlueprintIdentifier = '2A5BE18B81BCA6EA26E2C55DEB64098B'
                BlueprintName = 'Diff'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Diff.framework'>

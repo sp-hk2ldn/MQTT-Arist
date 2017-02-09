@@ -9,32 +9,40 @@
 import Foundation
 import MQTTClient
 
-enum ConnectionState: String {
-    case disconnected = "disconnected", connected = "connected"
-}
+
 
 protocol MQTTConnectable: MQTTSessionDelegate {
     var session: MQTTSession { get set }
     func connect()
-    func connected(_ session: MQTTSession!)
+    func disconnect()
 }
 
 extension MQTTConnectable where Self:AristMachine {
-    
-    
+        
     func connect(){
-        guard let newSession = MQTTSession() else {
-            fatalError("Could not create MQTTSession")
-        }
-        newSession.delegate = self
-        newSession.securityPolicy = MQTTSSLSecurityPolicy(pinningMode: .none)
-        newSession.securityPolicy.validatesCertificateChain = false
-        newSession.securityPolicy.allowInvalidCertificates = true
-        
-        self.session = newSession
+        session.connect(toHost: self.ipAddress, port: self.hostPort, usingSSL: true)
     }
     
-    func connected(_ session: MQTTSession!) {
-        
+    func getConnectionStatus() -> ConnectionState? {
+        return self.connectionStatusLog.array.last
     }
+    
+    func disconnect(){
+        session.disconnect()
+    }
+    
+    internal func determineConnectionStatus(session: MQTTSession) -> ConnectionState {
+        switch session.status {
+        case .error:
+            return .error
+        case .connected, .created:
+            return .connected
+        case .connecting, .disconnecting:
+            return .pending
+        case .closed:
+            return .disconnected
+        }
+    }
+    
+    
 }

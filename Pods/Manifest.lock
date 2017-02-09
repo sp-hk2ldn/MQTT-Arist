@@ -1,7 +1,7 @@
 PODS:
-  - Bond (5.4.2):
+  - Bond (6.0.0):
     - Diff (~> 0.4)
-    - ReactiveKit (~> 3.2)
+    - ReactiveKit (~> 3.3)
   - Diff (0.5.0)
   - Moscapsule (0.5.2)
   - MQTTClient (0.8.7):
@@ -13,11 +13,11 @@ PODS:
     - MQTTClient/Min
   - MQTTClient/Min (0.8.7)
   - OpenSSL-Universal (1.0.1.20)
-  - ReactiveKit (3.2.1)
+  - ReactiveKit (3.3.0)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
-  - Bond
+  - Bond (~> 6.0)
   - Moscapsule (from `https://github.com/flightonary/Moscapsule.git`, branch `swift3`)
   - MQTTClient
   - OpenSSL-Universal (~> 1.0.1.18)
@@ -34,14 +34,14 @@ CHECKOUT OPTIONS:
     :git: https://github.com/flightonary/Moscapsule.git
 
 SPEC CHECKSUMS:
-  Bond: a8eea8628421c30af71c43ebad2cb86d6a1d3315
+  Bond: d34e0c37e829c991d3ef80aa860f647d677e7801
   Diff: eceb93a3adf508574ba9b8560da185ace83de055
   Moscapsule: 16da766e698792911aafd11d9a26c6dbc42199f4
   MQTTClient: 2842bdeab5a65eec75e0fcbbbd2a300946690fee
   OpenSSL-Universal: 71f2c4b2ae758e2218090f905e95ca0ac5c01be7
-  ReactiveKit: 724c58768791b86a4b149adae587f34cdc3902d7
+  ReactiveKit: 56a5b949847ba137da40045149785e569f292e07
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 40c52c68ae11d90642656f4910372ca398a750a9
+PODFILE CHECKSUM: 2a27204f3a81a0799cf4ea06b68b8700366a8894
 
 COCOAPODS: 1.0.1

@@ -1,7 +1,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2016 Srdan Rasic (@srdanrasic)
+//  Copyright (c) 2017 Tony Arnold (@tonyarnold)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,15 +22,16 @@
 //  THE SOFTWARE.
 //
 
-#if os(OSX)
-  import AppKit
-#else
-  import UIKit
-#endif
+public protocol QueryableDataSourceProtocol: DataSourceProtocol {
+  associatedtype Item
+  associatedtype Index
 
-public extension NSLayoutConstraint {
+  func item(at index: Index) -> Item
+}
 
-  public var bnd_isActive: Bond<NSLayoutConstraint, Bool> {
-    return Bond(target: self) { $0.isActive = $1 }
+extension Array: QueryableDataSourceProtocol {
+
+  public func item(at index: Int) -> Iterator.Element {
+    return self[index]
   }
 }

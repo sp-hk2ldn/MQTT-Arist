@@ -9,14 +9,9 @@
 import UIKit
 //import SwiftMQTT
 import MQTTClient
+import Bond
 
 class ViewController: AristCommunicationViewController, UITextFieldDelegate, MQTTSessionDelegate {
-    
-    var sessionConnected = false
-    var sessionError = false
-    var sessionReceived = false
-    var sessionSubAcked = false
-    var session: MQTTSession?
     
     //** Machine Configuration **//
     var networkAddress: String = "" {
@@ -25,50 +20,40 @@ class ViewController: AristCommunicationViewController, UITextFieldDelegate, MQT
         }
     }
     
-    //** Machine Response **//
-    var machineResponse: String = "" {
-        didSet {
-            DispatchQueue.main.async {
-                let timeStamp = Date()
-                let formatter = DateFormatter()
-                formatter.dateFormat = "HH:mm:ss"
-                let timeStampString = formatter.string(from: timeStamp)
-                self.machineResponseTextView.text = "[\(timeStampString)]\(self.machineResponse)\n\(self.machineResponseTextView.text!)"
-            }
-        }
-    }
-    
     var loadingIndicator: UIActivityIndicatorView?
     
     var activeMachine: AristMachine?
+    var tableViewSetup: Bool = false
     
+    @IBOutlet var tableView: UITableView!
     @IBOutlet var reactivetestlabel: UILabel!
     @IBOutlet var connectionButton: UIButton!
+    @IBOutlet var disconnectionButton: UIButton!
     @IBOutlet var connectionAddressTextField: UITextField! {
         didSet {
             connectionAddressTextField.delegate = self
         }
     }
-    @IBOutlet var machineResponseTextView: UITextView!
     
     @IBAction func connectToArist(_ sender: UIButton) {
-        bindTextViewToStatus()
         activeMachine?.connect()
+        if !tableViewSetup {
+            setupTableview()
+            tableViewSetup = true
+        }
     }
     
     @IBAction func disconnectFromArist(_ sender: UIButton) {
         activeMachine?.disconnect()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         retrieveActiveNetworkAddress()
-
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     fileprivate func saveActiveNetworkAddress(networkAddress: String){
@@ -92,13 +77,15 @@ class ViewController: AristCommunicationViewController, UITextFieldDelegate, MQT
         }
     }
     
-    fileprivate func bindTextViewToStatus(){
-        activeMachine?.connectionStatusString
-            .bind(to: machineResponseTextView.bnd_text)
-        activeMachine?.connectionStatusString
-            .bind(to: reactivetestlabel.bnd_text)
+    fileprivate func setupTableview(){
+        activeMachine?.connectionStatusLog.bind(to: tableView) { [weak self] dataSources, indexPath, tableView in
+            guard let weakSelf = self else { return UITableViewCell() }
+            let cell = weakSelf.tableView.dequeueReusableCell(withIdentifier: "statusCell", for: indexPath) as! MachineStatusTableViewCell
+            let dataSource = dataSources[indexPath.row]
+            cell.statusLabel.text = dataSource.rawValue
+            return cell
+        }
     }
-    
     
     //MARK:- Delegates
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -106,80 +93,19 @@ class ViewController: AristCommunicationViewController, UITextFieldDelegate, MQT
             networkAddress = textField.text!
             saveActiveNetworkAddress(networkAddress: textField.text!)
             activeMachine = AristMachine(ipAddress: textField.text!, machineName: "arist", hostPort: 8443)
-        
         }
-    }
-    
-    func handleEvent(_ session: MQTTSession!, event eventCode: MQTTSessionEvent, error: Error!) {
-        switch eventCode {
-        case .connected:
-            sessionConnected = true
-        case .connectionClosed:
-            sessionConnected = false
-        default:
-            sessionError = true
-        }
-    }
-    
-    func newMessage(_ session: MQTTSession!, data: Data!, onTopic topic: String!, qos: MQTTQosLevel, retained: Bool, mid: UInt32) {
-        print("Received \(data) on:\(topic) q\(qos) r\(retained) m\(mid)")
-        
-        let dataString = String(data: data, encoding: String.Encoding.utf8)
-        print("Received \(dataString)")
-        sessionReceived = true;
-    }
-    
-    func subAckReceived(_ session: MQTTSession!, msgID: UInt16, grantedQoss qoss: [NSNumber]!) {
-        sessionSubAcked = true;
     }
  
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == connectionAddressTextField {
             textField.resignFirstResponder()
         }
         return true
     }
-    
-//    func testSwiftSubscribe() {
-//        
-//        
-//        guard let newSession = MQTTSession() else {
-//            fatalError("Could not create MQTTSession")
-//        }
-//        session = newSession
-//        
-//    
-//    
-//        newSession.delegate = self
-//
-//        newSession.securityPolicy = MQTTSSLSecurityPolicy(pinningMode: .none)
-//        newSession.securityPolicy.validatesCertificateChain = false
-//        newSession.securityPolicy.allowInvalidCertificates = true
-//        
-//        newSession.connect(toHost: "192.168.1.132", port: 8443, usingSSL: true)
-//        
-//        while !sessionConnected && !sessionError {
-//            RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
-//        }
-//        
-//        newSession.subscribe(toTopic: "/Sample/Repeating", at: .atMostOnce)
-//        
-//        while sessionConnected && !sessionError && !sessionSubAcked {
-//            RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
-//        }
-//        
-//        newSession.publishData("sent from Xcode using Swift".data(using: String.Encoding.utf8, allowLossyConversion: false),
-//                               onTopic: "/Sample/Request",
-//                               retain: false,
-//                               qos: .atMostOnce)
-//        
-//        while sessionConnected && !sessionError && !sessionReceived {
-//            RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
-//        }
-//        
-//    }
-    
-
 }
+
+class MachineStatusTableViewCell: UITableViewCell {
+    @IBOutlet var statusLabel: UILabel!
+}
+
 

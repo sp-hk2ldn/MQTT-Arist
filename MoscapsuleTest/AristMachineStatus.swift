@@ -9,14 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-enum MachineModuleStatus {
-    case Error
-    case Okay
-}
 
-enum MachineStatusErrorCode: Int {
-    case someError = 0, anotherError, yetAnotherError
-}
 
 class AristMachineStatus: AristMachineCommunicator {
     

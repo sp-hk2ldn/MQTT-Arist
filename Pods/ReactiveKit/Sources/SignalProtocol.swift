@@ -183,6 +183,25 @@ public extension SignalProtocol {
     }
   }
 
+  /// Maps each element into an optional type and propagates unwrapped .some results.
+  /// Shorthand for ```map().ignoreNil()```.
+  public func flatMap<U>(_ transform: @escaping (Element) -> U?) -> Signal<U, Error> {
+    return Signal { observer in
+      return self.observe { event in
+        switch event {
+        case .next(let element):
+          if let element = transform(element) {
+            observer.next(element)
+          }
+        case .failed(let error):
+          observer.failed(error)
+        case .completed:
+          observer.completed()
+        }
+      }
+    }
+  }
+
   /// Map each event into a signal and then flatten inner signals.
   public func flatMapLatest<O: SignalProtocol>(transform: @escaping (Element) -> O) -> Signal<O.Element, Error> where O.Error == Error {
     return map(transform).switchToLatest()
@@ -410,9 +429,9 @@ extension SignalProtocol where Element: OptionalProtocol {
   }
 }
 
-extension SignalProtocol where Element: Collection {
+extension SignalProtocol where Element: Sequence {
 
-  /// Map each emitted array.
+  /// Map each emitted sequence.
   public func flatMap<U>(_ transform: @escaping (Element.Iterator.Element) -> U) -> Signal<[U], Error> {
     return Signal { observer in
       return self.observe { event in
@@ -423,6 +442,22 @@ extension SignalProtocol where Element: Collection {
           observer.failed(error)
         case .completed:
           observer.completed()
+        }
+      }
+    }
+  }
+
+  /// Unwraps elements from each emitted sequence into an events of their own.
+  public func unwrap() -> Signal<Element.Iterator.Element, Error> {
+    return Signal { observer in
+      return self.observe { event in
+        switch event {
+        case .next(let sequence):
+          sequence.forEach(observer.next)
+        case .completed:
+          observer.completed()
+        case .failed(let error):
+          observer.failed(error)
         }
       }
     }
@@ -514,6 +549,24 @@ public extension SignalProtocol {
           observer.on(event)
         }
       }
+    }
+  }
+
+  /// Filters the signal by executing `isIncluded` in each element and
+  /// propagates that element only if the returned signal fires `true`.
+  public func filter(_ isIncluded: @escaping (Element) -> SafeSignal<Bool>) -> Signal<Element, Error> {
+    return flatMapLatest { element -> Signal<Element, Error> in
+      return isIncluded(element)
+        .first()
+        .map { isIncluded -> Element? in
+          if isIncluded {
+            return element
+          } else {
+            return nil
+          }
+        }
+        .ignoreNil()
+        .castError()
     }
   }
 
@@ -1415,7 +1468,7 @@ extension SignalProtocol {
       }
 
       func completeIfPossible() {
-        if completions.me && completions.other {
+        if (buffers.my.isEmpty && completions.me) || (buffers.other.isEmpty && completions.other) {
           observer.completed()
         }
       }
@@ -1425,13 +1478,13 @@ extension SignalProtocol {
         switch event {
         case .next(let element):
           buffers.my.append(element)
-          dispatchIfPossible()
         case .failed(let error):
           observer.failed(error)
         case .completed:
           completions.me = true
-          completeIfPossible()
         }
+        dispatchIfPossible()
+        completeIfPossible()
       }
 
       compositeDisposable += other.observe { event in
@@ -1439,13 +1492,13 @@ extension SignalProtocol {
         switch event {
         case .next(let element):
           buffers.other.append(element)
-          dispatchIfPossible()
         case .failed(let error):
           observer.failed(error)
         case .completed:
           completions.other = true
-          completeIfPossible()
         }
+        dispatchIfPossible()
+        completeIfPossible()
       }
 
       return compositeDisposable
